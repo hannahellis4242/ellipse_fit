@@ -94,9 +94,9 @@ static double score( const boost::numeric::ublas::matrix<double> & xs, const Ell
 	std::cout << pointsInEllipseFrame << std::endl;
 
 	double score = 0;
-	for( unsigned int col = 0, end = pointsInEllipseFrame.size2(); col < end; ++col)
+	for( size_t col = 0, end = pointsInEllipseFrame.size2(); col < end; ++col)
 	{
-		const Point point( pointsInEllipseFrame(col,0),pointsInEllipseFrame(col,1));
+		const Point point( pointsInEllipseFrame(0,col),pointsInEllipseFrame(1,col));
 		const double top = point.x*point.x*p.major*p.major*p.minor*p.minor;
 		const double bottom = p.major*p.major*point.y*point.y + p.minor*p.minor*point.x*point.x;
 		const double square = top/bottom;
@@ -113,6 +113,7 @@ void run(const std::string & filename)
 {
 	const boost::numeric::ublas::matrix<double> input = parse(filename);
 	std::cout << "input : "<< input << std::endl;
-	score(input,EllipseParams(2,1,45*boost::math::constants::pi<double>()/180.0,1,1));
+	const auto s = score(input,EllipseParams(2,1,45*boost::math::constants::pi<double>()/180.0,1,1));
+	std::cout << "score : " << s << std::endl ;
 }
 
