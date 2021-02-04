@@ -96,9 +96,9 @@ static double score( const boost::numeric::ublas::matrix<double> & xs, const Ell
 	double score = 0;
 	for( unsigned int col = 0, end = pointsInEllipseFrame.size2(); col < end; ++col)
 	{
-		const Point point( pointsInEllipeFrame(col,0),pointsInEllipseFrame(col,1));
-		const double top = point.x*point.x*p.A*p.A*p.B*p.B;
-		const double bottom = p.A*p.A*point.y*point.y + p.B*p.B*point.x*point.x;
+		const Point point( pointsInEllipseFrame(col,0),pointsInEllipseFrame(col,1));
+		const double top = point.x*point.x*p.major*p.major*p.minor*p.minor;
+		const double bottom = p.major*p.major*point.y*point.y + p.minor*p.minor*point.x*point.x;
 		const double square = top/bottom;
 		const double x1 = sqrt(square);
 		const double x2 = -sqrt(square);
