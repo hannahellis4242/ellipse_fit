@@ -67,6 +67,19 @@ EllipseParams(const double A, const double B, const double alpha, const double p
 }
 };
 
+class Point{
+public :
+double x , y ;
+Point(const double a , const double b ):x(a),y(b){}
+};
+
+static double distance( const Point & a , const Point & b )
+{
+const double dx = a.x - b.x;
+const double dy = a.y - b.y;
+return sqrt(dx*dx+dy*dy);
+}
+
 static double score( const boost::numeric::ublas::matrix<double> & xs, const EllipseParams &p)
 {
 //step 1 translate
@@ -78,7 +91,21 @@ static double score( const boost::numeric::ublas::matrix<double> & xs, const Ell
 	std::cout << "R : " << R << std::endl;
 	const boost::numeric::ublas::matrix<double> pointsInEllipseFrame = prod(R,translated);
 	std::cout << pointsInEllipseFrame << std::endl;
-	return 1000000.0;
+
+double score = 0 ;
+for( unsigned int col = 0 , end = pointsInEllipseFrame.size2() ; col < end ;++col)
+{
+const Point point( pointsInEllipeFrame(col,0),pointsInEllipseFrame(col,1));
+const double top = point.x*point.x*p.A*p.A*p.B*p.B;
+const double bottom = p.A*p.A*point.y*point.y + p.B*p.B*point.x*point.x;
+const double square = top/bottom;
+const double x1 = sqrt(square);
+const double x2 = -sqrt(square);
+const Point intersect1(x1,point.y*x1/point.x);
+const Point intersect2(x2,point.y*x2/point.x);
+score += std::min( distance(intersect1 , point ), distance(intersect2,point)); 
+}
+	return score;
 }
 
 void run(const std::string & filename)
