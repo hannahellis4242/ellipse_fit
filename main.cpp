@@ -3,7 +3,26 @@
 #include <iostream>
 #include <boost/program_options.hpp>
 
+//for testing
+#include "simplex.h"
 
+
+namespace test
+{
+double func(double x)
+{
+return 20*sin(x)+x*x;
+}
+
+void run()
+{
+std::cout << std::string(10,'-') << "test" << std::string(10,'-')<<std::endl;
+const auto out = simplex(func,Range(6,5),1e-6);
+std::cout << "Range : " << out.first << " - " << out.second << std::endl ;
+std::cout << std::string(10,'=') << "test" << std::string(10,'=')<<std::endl;
+}
+
+}
 
 int main(int argc, char *argv[])
 {
@@ -29,6 +48,7 @@ int main(int argc, char *argv[])
 	{
 		const std::string filename = vm["input"].as<std::string>();
 		run(filename);
+		test::run();
 	}
 	else
 	{

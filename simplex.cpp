@@ -25,7 +25,7 @@ trialPoints.push_back(2*best-worst);
 //two steps along the line
 trialPoints.push_back(3*best-2*worst);
 //three steps along the line (being optimisic)
-trailPoints.push_back(4*best-3*worst);
+trialPoints.push_back(4*best-3*worst);
 
 //find the smallest
 const auto it = std::min_element(trialPoints.begin(),trialPoints.end(),[&](const double a , const double b){return f(a)<f(b);});

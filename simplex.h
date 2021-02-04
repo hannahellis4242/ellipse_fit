@@ -1,7 +1,7 @@
 #ifndef SIMPLEX_H
 #define SIMPLEX_H
 #include <utility>
-#include <function>
+#include <functional>
 
 using Range=std::pair<double,double>;
 
