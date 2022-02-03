@@ -1,17 +1,6 @@
 import Ellipse from "./Ellipse";
 import Point from "./Point";
-
-class Translation {
-  private x: number;
-  private y: number;
-  constructor([x, y]: Point) {
-    this.x = x;
-    this.y = y;
-  }
-  exec([x, y]: Point): Point {
-    return [x + this.x, y + this.y];
-  }
-}
+import Translate from "./Translate";
 
 class Rotation {
   private s: number;
@@ -30,7 +19,7 @@ class Stretch {}
 
 const transform_points = (e: Ellipse, data: Point[]): Point[] => {
   //step 1 translate
-  const translation = new Translation([-e.offset.x, -e.offset.y]);
+  const translation = new Translate([-e.offset.x, -e.offset.y]);
   //step 2 rotate data
   const rotation = new Rotation(e.angle);
   //step 3 stretch
